@@ -29,9 +29,9 @@ int main()
             N = (P + 1);
             printf("Original List: ");
             display(O);
-            printf("Positive List: ");
+            printf("\nPositive List: ");
             display(P);
-            printf("Negative List: ");
+            printf("\nNegative List: ");
             display(N);
         }
     }

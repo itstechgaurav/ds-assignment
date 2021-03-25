@@ -8,7 +8,7 @@ int main()
   int elements[] = {1, 2, 3, 4, 5, 2, 4, 5, 7, 6, 8, 1};
   int n = 12;
   int count = get_third_no_repeating_element(elements, n);
-  printf("Non Repeating Elements: %d\n", count);
+  printf("Non Repeating Element: %d\n", count);
   return 0;
 }
 

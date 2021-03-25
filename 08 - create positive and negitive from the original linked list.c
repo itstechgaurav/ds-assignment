@@ -4,13 +4,11 @@
 typedef struct nodetype
 {
     int data;
-    struct nodetype *con; // con - connection to some node
     struct nodetype *next;
 } node;
 
-node *insert(node *);
-node *create_other(node *, int);
-void display(node *, int);
+node *insert(node *, node *);
+void display(node *);
 
 int main()
 {
@@ -24,54 +22,65 @@ int main()
         scanf("%d", &ch);
 
         if (ch == 1)
-            O = insert(O);
+            O = insert(O, NULL);
         if (ch == 2)
         {
-            P = create_other(O, 1); // create positive - 1 if positive
-            N = create_other(O, 0); // create negative - 0 if negative
+            P = insert(O, O);
+            N = (P + 1);
             printf("Original List: ");
-            display(O, 0); // display the orginal node n->data
-            printf("\nPositive List: ");
-            display(P, 1); // display the node->con->data
-            printf("\nNegitive List: ");
-            display(N, 1); // display the node->con->data
+            display(O);
+            printf("Positive List: ");
+            display(P);
+            printf("Negative List: ");
+            display(N);
         }
     }
     return 0;
 }
 
-node *insert(node *O)
+node *insert(node *O, node *FROM)
 {
-    node *P = malloc(sizeof(node));
-    printf("Enter number: ");
-    scanf("%d", &P->data);
-
-    P->next = O;
-    return P;
-}
-
-node *create_other(node *O, int ch)
-{
+    node *POS = NULL, *NEG = NULL;
     node *P = NULL;
-    while (O != NULL)
+
+    if (FROM == NULL) // if we want to add elements to original list
     {
-        if (ch == 1 ? O->data >= 0 : O->data < 0)
-        {
-            node *T = malloc(sizeof(node));
-            T->next = P;
-            T->con = O;
-            P = T;
-        }
-        O = O->next;
+        P = (node *)malloc(sizeof(node));
+        printf("Enter number: ");
+        scanf("%d", &P->data);
+        P->next = O; // added previous node to the new node next
     }
+    else // if we want to create positive and negative lists
+    {
+        while (FROM != NULL) // looping throw the original list
+        {
+            P = (node *)malloc(sizeof(node));
+            P->data = FROM->data;
+            if (FROM->data > 0) // for positive list
+            {
+                P->next = POS;
+                POS = P;
+            }
+            else // ofr negative list
+            {
+                P->next = NEG;
+                NEG = P;
+            }
+            FROM = FROM->next;
+        }
+        P = (node *)calloc(2, sizeof(node)); // create two blocks inside p
+        *(P + 0) = *POS;                     // at 0th index of p insert positve list
+        *(P + 1) = *NEG;                     // at 1th index of p insert negative list
+    }
+
     return P;
 }
 
-void display(node *NODE, int ch)
+void display(node *NODE)
 {
     while (NODE != NULL)
     {
-        printf("%d ", ch ? NODE->con->data : NODE->data);
+        printf("%d ", NODE->data);
         NODE = NODE->next;
     }
 }

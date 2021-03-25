@@ -30,9 +30,8 @@ int main()
     }
     if (ch == 2)
     {
-      R = reverse(L);
-      L = R->next;
-      R->next = NULL;
+      R = L;
+      L = reverse(L);
     }
 
     if (ch == 3)
@@ -62,30 +61,17 @@ node *insert(node *R)
 
 node *reverse(node *L)
 {
-  node *arr[100], *T;
-  int n = 0;
+  node *P = NULL, *N;
+
   while (L != NULL)
   {
-    arr[n] = L;
+    N = L;
     L = L->next;
-    n++;
+    N->next = P;
+    P = N;
   }
-  while (n >= 0)
-  {
-    if (L == NULL)
-    {
-      L = arr[n];
-      T = L;
-    }
-    else
-    {
-      L->next = arr[n];
-      L = L->next;
-    }
-    n--;
-  }
-  L->next = T; // now L will be the last node and it's next will be the first node which we will remove in main function
-  return L;
+
+  return N;
 }
 
 void display(node *L)

@@ -49,10 +49,13 @@ node *insert(node *R)
   P->next = NULL;
   if (R == NULL)
   {
+    // if null then we are inserting the first node
     R = P;
   }
   else
   {
+    // else we are inserting node next to the right
+    // and then moving the pointer to the next right
     R->next = P;
     R = P;
   }
@@ -63,11 +66,16 @@ node *delete (node *L)
 {
   if (L == NULL)
   {
+    // checking if the linked list is empty
     printf("linked list is empty");
     return L;
   }
   else
   {
+    // if list is not empty then delete the
+    // first node of the list and return the
+    // first->next item as the new left
+    // of the linked list
     node *T = L;
     L = L->next;
     printf("%d is deleted", T->data);

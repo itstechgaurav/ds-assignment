@@ -26,7 +26,7 @@ int main()
         if (ch == 2)
         {
             P = insert(O, O);
-            N = (P + 1);
+            N = (P + 1); // first index of p having the negative node
             printf("Original List: ");
             display(O);
             printf("\nPositive List: ");

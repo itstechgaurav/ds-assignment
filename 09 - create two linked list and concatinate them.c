@@ -46,17 +46,17 @@ node *insert(node *O)
     printf("Enter number: ");
     scanf("%d", &P->data);
 
-    P->next = O;
-    return P;
+    P->next = O; // inserting node at left side
+    return P;    // returning the newly inserted node
 }
 
 node *concat(node *first, node *second)
 {
-    node *T = first;
+    node *T = first; // storing first in tmp
     while (T->next != NULL)
-        T = T->next;
-    T->next = second;
-    return first;
+        T = T->next;  // finding the last element of first
+    T->next = second; // joining the first last to the second
+    return first;     // returning the first
 }
 
 void display(node *P)
@@ -64,6 +64,6 @@ void display(node *P)
     while (P != NULL)
     {
         printf("%d ", P->data);
-        P = P->next;
+        P = P->next; // moving the node to the next node
     }
 }
